@@ -13,3 +13,13 @@ Content-Type: audio/mpeg
 
 < ./faxul.mp3
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+# @name create-transcription
+POST http://localhost:3333/videos/165a6a6b-8893-4294-bb50-bece8e635d37/transcription
+Content-Type: application/json
+
+{
+  "prompt": "faz u L"
+}
