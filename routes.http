@@ -23,3 +23,15 @@ Content-Type: application/json
 {
   "prompt": "faz u L"
 }
+
+###
+
+# @name generate-ai-completion
+POST http://localhost:3333/ai/complete
+Content-Type: application/json
+
+{
+  "videoId": "165a6a6b-8893-4294-bb50-bece8e635d37",
+  "temperature": 0.5,
+  "template": "Do que se trata a transcrição do vídeo? Insira a seguir: '''{transcription}'''"
+}
