@@ -37,7 +37,7 @@ export async function uploadVideo(app: FastifyInstance) {
 
     const uploadDestination = path.resolve(
       __dirname,
-      '../../tmp',
+      '../../public',
       fileUploadName
     );
 
