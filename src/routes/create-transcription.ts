@@ -1,10 +1,19 @@
-import { createReadStream } from 'node:fs';
+import { createReadStream, createWriteStream } from 'node:fs';
 
 import { FastifyInstance } from 'fastify';
 import { prisma } from '../lib/prisma';
 
 import { z } from 'zod';
 import { openai } from '../lib/openai';
+import {toFile} from 'openai';
+import { getDownloadURL, getStream, ref } from 'firebase/storage';
+import { firebaseAdminStorage, firebaseStorage } from '../lib/firebase';
+
+import { pipeline } from 'node:stream';
+import { promisify } from 'node:util';
+import path from 'node:path';
+
+const pump = promisify(pipeline);
 
 export async function createTranscriptionRoute(app: FastifyInstance) {
   app.post('/videos/:videoId/transcription', async (req) => {
@@ -28,7 +37,14 @@ export async function createTranscriptionRoute(app: FastifyInstance) {
 
     const videoPath = video.path;
 
-    const audioReadStream = createReadStream(videoPath);
+    const storageRef = ref(firebaseStorage, videoPath)
+    const file = getStream(storageRef);
+
+    const destination = path.resolve(__dirname, '../../tmp', video.path)
+
+    await pump(file, createWriteStream(destination))
+
+    const audioReadStream = createReadStream(destination);
 
     const response = await openai.audio.transcriptions.create({
       file: audioReadStream,
