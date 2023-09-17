@@ -33,9 +33,9 @@ export async function uploadVideo(app: FastifyInstance) {
     }
 
     const fileBaseName = path.basename(data.filename, extension);
-    const fileUploadName = `${fileBaseName}-${randomUUID()}${extension}`;
+    const fileUploadName = `audios/${fileBaseName}-${randomUUID()}${extension}`;
 
-    const uploadDestination = path.resolve(__dirname, '../../tmp',
+    const uploadDestination = path.resolve(__dirname, '../../tmp/',
       fileUploadName
     );
 
