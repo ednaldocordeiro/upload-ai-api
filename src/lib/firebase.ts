@@ -1,4 +1,6 @@
 import {initializeApp} from 'firebase/app';
+import admin from 'firebase-admin';
+
 import {getStorage} from 'firebase/storage';
 
 const firebaseConfig = {
@@ -15,3 +17,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const firebaseStorage = getStorage(app);
+
+export const firebaseAdminStorage = admin.initializeApp(firebaseConfig)

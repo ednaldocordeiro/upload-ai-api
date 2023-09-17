@@ -1,10 +1,11 @@
-import { createReadStream } from 'node:fs';
-
 import { FastifyInstance } from 'fastify';
 import { prisma } from '../lib/prisma';
 
 import { z } from 'zod';
 import { openai } from '../lib/openai';
+import {toFile} from 'openai';
+import { getStream, ref } from 'firebase/storage';
+import { firebaseStorage } from '../lib/firebase';
 
 export async function createTranscriptionRoute(app: FastifyInstance) {
   app.post('/videos/:videoId/transcription', async (req) => {
@@ -28,10 +29,11 @@ export async function createTranscriptionRoute(app: FastifyInstance) {
 
     const videoPath = video.path;
 
-    const audioReadStream = createReadStream(videoPath);
+    const storageRef = ref(firebaseStorage, videoPath)
+    const file = getStream(storageRef);
 
     const response = await openai.audio.transcriptions.create({
-      file: audioReadStream,
+      file: await toFile(file),
       model: 'whisper-1',
       language: 'pt',
       response_format: 'json',

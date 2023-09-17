@@ -17,11 +17,11 @@ Content-Type: audio/mpeg
 ###
 
 # @name create-transcription
-POST http://localhost:3333/videos/efaa3175-2dc5-4723-94df-85267b6d686c/transcription
+POST http://localhost:3333/videos/987254f1-838d-4ca3-aec9-d910793d9420/transcription
 Content-Type: application/json
 
 {
-  "prompt": "faz u L"
+  "prompt": "india"
 }
 
 ###
@@ -31,7 +31,7 @@ POST http://localhost:3333/ai/complete
 Content-Type: application/json
 
 {
-  "videoId": "efaa3175-2dc5-4723-94df-85267b6d686c",
+  "videoId": "987254f1-838d-4ca3-aec9-d910793d9420",
   "temperature": 0.5,
   "template": "Do que se trata a transcrição do vídeo? Insira a seguir: '''{transcription}'''"
 }
