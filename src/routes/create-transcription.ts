@@ -33,7 +33,7 @@ export async function createTranscriptionRoute(app: FastifyInstance) {
     const file = getStream(storageRef);
 
     const response = await openai.audio.transcriptions.create({
-      file: await toFile(file),
+      file: await toFile(file, 'audio.mp3'),
       model: 'whisper-1',
       language: 'pt',
       response_format: 'json',

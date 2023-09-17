@@ -35,7 +35,7 @@ export async function uploadVideo(app: FastifyInstance) {
     const fileBuffer = await data.toBuffer();
 
     const fileBaseName = path.basename(data.filename, extension);
-    const fileUploadName = `audios/${fileBaseName}-${randomUUID()}${extension}`;
+    const fileUploadName = `${fileBaseName}-${randomUUID()}${extension}`;
 
     const storageRef = ref(firebaseStorage, `audios/${fileUploadName}`)
     const {metadata: {fullPath}} = await uploadBytes(storageRef, fileBuffer, {
