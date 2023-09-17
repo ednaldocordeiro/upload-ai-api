@@ -16,5 +16,5 @@
       "dest": "src/server.ts"
     }
   ],
-  "files": ["tmp/**"]
+  "public": true
 }
