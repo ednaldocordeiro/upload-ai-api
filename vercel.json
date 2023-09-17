@@ -6,7 +6,7 @@
       "use": "@vercel/node"
     },
     {
-      "src": "public",
+      "src": "tmp",
       "use": "@vercel/node"
     }
   ],
@@ -15,6 +15,5 @@
       "src": "(.*)",
       "dest": "src/server.ts"
     }
-  ],
-  "files": ["tmp/**"]
+  ]
 }

@@ -32,13 +32,15 @@ export async function uploadVideo(app: FastifyInstance) {
         .send({ error: 'Invalid input type, please upload a MP3' });
     }
 
-    const fileBuffer = data.file.read();
+    const fileBuffer = await data.toBuffer();
 
     const fileBaseName = path.basename(data.filename, extension);
     const fileUploadName = `${fileBaseName}-${randomUUID()}${extension}`;
 
     const storageRef = ref(firebaseStorage, `audios/${fileUploadName}`)
-    const {metadata: {fullPath}} = await uploadBytes(storageRef, fileBuffer);
+    const {metadata: {fullPath}} = await uploadBytes(storageRef, fileBuffer, {
+      contentType: 'audio/mpeg'
+    });
 
     const video = await prisma.video.create({
       data: {
